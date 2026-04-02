@@ -11,13 +11,13 @@ const BASE_URLS: Record<string, string> = {
   uat:  process.env.BASE_URL_UAT  ?? 'https://gems-uat.cibc.internal',
 };
 
-const bddConfig = defineBddConfig({
+const testDir = defineBddConfig({
   features: 'tests/features/**/*.feature',
   steps:    'tests/steps/**/*.steps.ts',
 });
 
 export default defineConfig({
-  testDir: bddConfig.testDir,
+  testDir,
   globalSetup: './src/utils/global-setup.ts',
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
