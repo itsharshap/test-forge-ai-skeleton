@@ -1,0 +1,64 @@
+# SYSTEM CONTEXT & MISSION
+You are an Expert Enterprise Test Automation Architect. Your mission is to scaffold the initial repository for "CIBC TestForge AI", an enterprise-grade, Playwright-BDD automation framework designed for the GEMS application. 
+
+You have full permission to execute terminal commands, create directories, and write files to build this structure.
+
+# CORE ARCHITECTURAL PRINCIPLES (STRICT COMPLIANCE)
+You must build this framework adhering to the following "Token-Friendly" and "AI-Optimized" paradigms:
+1. Model-Agnostic Rules: All AI guidelines must live in `.github/instructions/` so they work with Copilot, Claude, or Gemini.
+2. Flat Design Approach: Deep OOP inheritance is strictly forbidden. Page Object Models (POMs) must use Composition over Inheritance. No `class WireTransferPage extends BasePage`.
+3. Token Optimization: Rely heavily on JSDoc (`/** */`) for utility functions. Use highly semantic variable names. 
+4. Aggressive Data Segregation: Hardcoded JSON payloads must never live in `.ts` files. They belong strictly in the `/data` directory to prevent context-window bloating during AI file reads.
+5. Zero Flakiness: Assume downstream environments are unstable. Architecture must support multi-context isolation (Maker/Checker) and API interception.
+
+# STEP 1: INITIALIZE PROJECT & DEPENDENCIES
+1. Run `git init`.
+2. Generate a `package.json` with the name `@cibc/testforge-ai-gems`.
+3. Add the following dependencies: `@playwright/test`, `playwright-bdd`, `cross-env`, `dotenv`.
+4. Add npm scripts for: `test:sit1`, `test:uat`, and `test:api-mocked`.
+5. Create a comprehensive `.gitignore` tailored for Node, Playwright (test-results, playwright-report, blob-report), local env files (`.env`), and Mac (`.DS_Store`).
+
+# STEP 2: BUILD THE FOLDER STRUCTURE
+Create the following exact directory tree:
+.github/
+  workflows/
+  instructions/
+src/
+  pages/
+  utils/
+  fixtures/
+tests/
+  features/
+  steps/
+data/
+  sit1/
+  uat/
+.ai-config/
+
+# STEP 3: MCP SWARM CONFIGURATION (CONFLUENCE & JIRA)
+1. Inside `.ai-config/`, create a file named `mcp-servers.example.json`. 
+2. Populate this JSON file with the exact configuration block needed to run `@modelcontextprotocol/server-confluence` and `@modelcontextprotocol/server-jira` using `npx`. Ensure it uses environment variables (e.g., `${CONFLUENCE_TOKEN}`) for authentication, strictly forbidding hardcoded credentials.
+
+# STEP 4: SCAFFOLD THE MODEL-AGNOSTIC RULES (The Brain)
+Create the following markdown files inside `.github/instructions/` with YAML frontmatter where applicable:
+
+1. `.github/instructions/copilot-instructions.md` (Global Rules: Emphasize BDD standards, strict TypeScript, and CIBC TestForge identity).
+2. `.github/instructions/playwright-pom.instructions.md` (Target: `**/*.page.ts`. Rules: Flat design only, strict use of `page.getByTestId()`(If DOM supports), assertions belong in steps not POMs).
+3. `.github/instructions/api-intercept.instructions.md` (Target: `**/*.mock.ts`. Rules: Guidelines for intercepting unstable banking APIs).
+4. `.github/instructions/mcp-context.instructions.md` (Global Rules: Instruct the AI that it must utilize the Confluence MCP server to read GEMS acceptance criteria and Figma specifications before generating any feature files or step definitions).
+
+# STEP 5: SCAFFOLD THE PLAYWRIGHT-BDD ENGINE
+1. Create `playwright.config.ts`. Configure it to use `playwright-bdd`, define projects for SIT1 and UAT, and set up multi-browser support.
+2. Create `src/fixtures/custom-fixtures.ts` to extend the base Playwright test object (e.g., setting up authenticated Maker/Checker browser contexts).
+3. Create a sample feature file: `tests/features/wire-transfer.feature` (Use Gherkin syntax for a basic Maker/Checker flow).
+4. Create the corresponding step definition file: `tests/steps/wire-transfer.steps.ts` (Keep it flat, use JSDoc).
+
+# STEP 6: ENTERPRISE UTILITIES (ALM & Auth)
+1. Create `src/utils/ALMReporter.ts`. This is a Playwright Custom Reporter. Leave placeholders and heavily document (via JSDoc) where the dual-cookie authentication and HTTP POST logic will go to log defects to Micro Focus ALM.
+2. Create `src/utils/global-setup.ts`. Add a `console.log` banner that prints: "Starting Execution: CIBC TestForge AI (GEMS)".
+
+# STEP 7: CI/CD PIPELINE STUB
+1. Create `.github/workflows/playwright-execution.yml`. 
+2. Write a standard GitHub Actions YAML file that installs Node, installs Playwright browsers, and runs the `npm run test:sit1` command on push to the `main` branch.
+
+Execute all necessary commands to build this repository structure now. Do not ask for permission between steps; execute the full scaffolding.

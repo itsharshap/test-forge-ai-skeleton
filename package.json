@@ -1,0 +1,19 @@
+{
+  "name": "@cibc/testforge-ai-gems",
+  "version": "1.0.0",
+  "description": "Enterprise-grade Playwright-BDD automation framework for the GEMS application",
+  "private": true,
+  "scripts": {
+    "test:sit1": "cross-env ENV=sit1 playwright test",
+    "test:uat": "cross-env ENV=uat playwright test",
+    "test:api-mocked": "cross-env ENV=sit1 MOCK_API=true playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "playwright-bdd": "^7.0.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5"
+  }
+}

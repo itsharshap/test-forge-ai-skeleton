@@ -1,0 +1,56 @@
+name: Playwright Test Execution
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-sit1:
+    name: Run SIT1 Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run SIT1 tests
+        run: npm run test:sit1
+        env:
+          ENV: sit1
+          BASE_URL_SIT1: ${{ secrets.BASE_URL_SIT1 }}
+          STORAGE_STATE_MAKER: ${{ secrets.STORAGE_STATE_MAKER }}
+          STORAGE_STATE_CHECKER: ${{ secrets.STORAGE_STATE_CHECKER }}
+          ALM_URL: ${{ secrets.ALM_URL }}
+          ALM_DOMAIN: ${{ secrets.ALM_DOMAIN }}
+          ALM_PROJECT: ${{ secrets.ALM_PROJECT }}
+          ALM_USER: ${{ secrets.ALM_USER }}
+          ALM_PASSWORD: ${{ secrets.ALM_PASSWORD }}
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-sit1
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-sit1
+          path: test-results/
+          retention-days: 7
